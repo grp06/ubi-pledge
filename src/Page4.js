@@ -25,7 +25,10 @@ import {
 
 class Page4 extends React.Component {
   state = {
-    activeRadio: 'one time'
+    activeRadio: 'one time',
+    amount: '',
+    email: '',
+    city: ''
   }
 
   setActiveRadio = name => {
@@ -34,8 +37,14 @@ class Page4 extends React.Component {
     })
   }
 
+  handleInputChange = (e, input) => {
+    this.setState({
+      [input]: e.target.value
+    })
+  }
+
   render() {
-    const { activeRadio } = this.state
+    const { activeRadio, amount, email, city } = this.state
     return (
       <MyContext.Consumer>
         {context => {
@@ -55,35 +64,50 @@ class Page4 extends React.Component {
                     name="one time"
                     value="one"
                     id="radio-one"
-                    class="form-radio"
+                    className="form-radio"
                     checked={activeRadio === 'one time'}
-                    onClick={() => this.setActiveRadio('one time')}
+                    onChange={() => this.setActiveRadio('one time')}
                   />
-                  <label for="radio-one">One Time</label>
+                  <label htmlFor="radio-one">One Time</label>
 
                   <input
                     type="radio"
                     name="recurring"
                     value="two"
                     id="radio-two"
-                    class="form-radio"
+                    className="form-radio"
                     style={{ marginLeft: 16 }}
                     checked={activeRadio === 'recurring'}
-                    onClick={() => this.setActiveRadio('recurring')}
+                    onChange={() => this.setActiveRadio('recurring')}
                   />
-                  <label for="radio-two">Recurring</label>
+                  <label htmlFor="radio-two">Recurring</label>
                 </RadioRow>
                 <InputFlexAlignedRow>
                   <span>Amount:</span>
-                  <TextInput type="text" placeholder="$350" />
+                  <TextInput
+                    type="text"
+                    placeholder="$350"
+                    value={amount}
+                    onChange={e => this.handleInputChange(e, 'amount')}
+                  />
                 </InputFlexAlignedRow>
                 <InputFlexAlignedRow>
                   <span>Email:</span>
-                  <TextInput type="text" placeholder="enter email" />
+                  <TextInput
+                    type="text"
+                    placeholder="enter email"
+                    value={email}
+                    onChange={e => this.handleInputChange(e, 'email')}
+                  />
                 </InputFlexAlignedRow>
                 <InputFlexAlignedRow>
                   <span>City:</span>
-                  <TextInput type="text" placeholder="enter city" />
+                  <TextInput
+                    type="text"
+                    placeholder="enter city"
+                    value={city}
+                    onChange={e => this.handleInputChange(e, 'city')}
+                  />
                 </InputFlexAlignedRow>
                 <CenteredParagraph>
                   By filling out this form I agree to do everything in my power
